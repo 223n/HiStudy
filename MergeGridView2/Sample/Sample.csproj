@@ -44,10 +44,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TenTec.Windows.iGridLib.iGrid.v4.6, Version=4.6.0.0, Culture=neutral, PublicKeyToken=9d47002745f2416c, processorArchitecture=MSIL">
-      <HintPath>..\packages\iGrid.NET.1.2.0\lib\TenTec.Windows.iGridLib.iGrid.v4.6.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
@@ -70,7 +66,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
