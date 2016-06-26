@@ -11,29 +11,49 @@ namespace MergeGridView2
     public class MergeHeaderGridview : DataGridView
     {
 
+        #region Const
+
+        /// <summary>
+        /// ヘッダの文字
+        /// </summary>
+        private readonly string[] HeaderTexts = { "Header1", string.Empty, "Header3", string.Empty, "Header5" };
+
+        #endregion
+
         #region Property
 
-        public List<string> ColumnHeaderGroups { get; set; } = new List<string>();
-
-        public DateTime StartDate { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        /// <summary>
+        /// 行ヘッダ用の開始日付
+        /// </summary>
+        public DateTime StartDate { get; set; }
 
         #endregion
 
         #region Initialize
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public MergeHeaderGridview()
         {
             InitializeProperty();
             InitializeEventHandler();
         }
 
+        /// <summary>
+        /// プロパティを初期化
+        /// </summary>
         private void InitializeProperty()
         {
+            StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomCenter;
             ColumnHeadersHeight = ColumnHeadersHeight * 2;
         }
 
+        /// <summary>
+        /// イベントの紐付けを初期化
+        /// </summary>
         private void InitializeEventHandler()
         {
             CellPainting += MergeHeaderGridview_CellPainting;
@@ -76,12 +96,13 @@ namespace MergeGridView2
 
         #region Method
 
+        /// <summary>
+        /// ヘッダを描画します
+        /// </summary>
         private void UpdateHeader(Graphics g)
         {
-            string[] headers = { "Header1", string.Empty, "Header3", string.Empty, "Header5" };
             using (var backBrush = new SolidBrush(ColumnHeadersDefaultCellStyle.BackColor))
             using (var foreBrush = new SolidBrush(ColumnHeadersDefaultCellStyle.ForeColor))
-            {
                 for (int j = 0; j < Columns.Count; j += 2)
                 {
                     var r1 = GetCellDisplayRectangle(j, -1, true);
@@ -94,15 +115,13 @@ namespace MergeGridView2
                     var format = new StringFormat();
                     format.Alignment = StringAlignment.Center;
                     format.LineAlignment = StringAlignment.Center;
-                    g.DrawString(
-                        headers[j / 2],
-                        ColumnHeadersDefaultCellStyle.Font,
-                        foreBrush,
-                        r1, format);
+                    g.DrawString(HeaderTexts[j / 2], ColumnHeadersDefaultCellStyle.Font, foreBrush, r1, format);
                 }
-            }
         }
 
+        /// <summary>
+        /// セルを描画します
+        /// </summary>
         private void UpdateCell(DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex == -1 && 0 <= e.ColumnIndex)
@@ -146,6 +165,9 @@ namespace MergeGridView2
             }
         }
 
+        /// <summary>
+        /// 再描画を促す
+        /// </summary>
         private void UpdateInvalidate()
         {
             var header = DisplayRectangle;
